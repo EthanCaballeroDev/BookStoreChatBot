@@ -1,0 +1,29 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.11'
+  displayName: 'Use Python 3.11'
+
+- script: |
+    python -m pip install --upgrade pip
+    python -m pip install build twine setuptools wheel
+  displayName: 'Install build tools'
+
+- script: |
+    python -m build
+  displayName: 'Build package'
+
+- task: TwineAuthenticate@1
+  inputs:
+    artifactFeed: 'YourProject/YourFeed'
+  displayName: 'Authenticate to Azure Artifacts'
+
+- script: |
+    python -m twine upload -r YourFeed --config-file $(PYPIRC_PATH) dist/*
+  displayName: 'Publish package
