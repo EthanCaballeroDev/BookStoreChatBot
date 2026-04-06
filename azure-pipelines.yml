@@ -31,3 +31,12 @@ steps:
 - script: |
     python -m twine upload -r BS_Chatbot_Feed --config-file $(PYPIRC_PATH) dist/*
   displayName: 'Publish package'
+
+#testing
+- script: |
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+    pip install pytest pytest-azurepipelines
+    pytest
+  displayName: 'Run pytest tests'
+  
