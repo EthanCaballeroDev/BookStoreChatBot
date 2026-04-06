@@ -21,9 +21,9 @@ steps:
 
 - task: TwineAuthenticate@1
   inputs:
-    artifactFeed: 'YourProject/YourFeed'
+    artifactFeed: 'Book Store Chatbot/BS_Chatbot_Feed'
   displayName: 'Authenticate to Azure Artifacts'
 
 - script: |
-    python -m twine upload -r YourFeed --config-file $(PYPIRC_PATH) dist/*
-  displayName: 'Publish package
+    python -m twine upload -r BS_Chatbot_Feed --config-file $(PYPIRC_PATH) dist/*
+  displayName: 'Publish package'
